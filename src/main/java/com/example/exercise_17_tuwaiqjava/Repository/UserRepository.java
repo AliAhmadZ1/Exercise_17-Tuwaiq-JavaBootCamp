@@ -1,15 +1,10 @@
 package com.example.exercise_17_tuwaiqjava.Repository;
 
 import com.example.exercise_17_tuwaiqjava.Model.User;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import java.awt.*;
 import java.util.List;
 
 @Repository
