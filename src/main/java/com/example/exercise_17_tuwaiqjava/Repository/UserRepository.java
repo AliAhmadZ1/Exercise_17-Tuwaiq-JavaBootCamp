@@ -1,6 +1,10 @@
 package com.example.exercise_17_tuwaiqjava.Repository;
 
 import com.example.exercise_17_tuwaiqjava.Model.User;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -22,6 +26,8 @@ public interface UserRepository extends JpaRepository<User,Integer> {
 
     @Query("select u from User u where u.age>=?1")
     List<User> getUserAgeAndAbove(Integer age);
+
+    User findUserByUsernameOrEmail(String username,String email);
 
 
 }

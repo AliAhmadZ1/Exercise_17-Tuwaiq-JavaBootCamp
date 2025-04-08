@@ -19,27 +19,34 @@ public class UserService {
 
     public Boolean addUser(User user){
 //        User user1 = userRepository.findUserById(user.getId());
-//        if (user1.getUsername().equals(user.getUsername())||user1.getEmail().equals(user.getEmail()))
+//        if (user1==null||user1.getUsername().equals(user.getUsername())||user1.getEmail().equals(user.getEmail()))
 //            return false;
-        userRepository.save(user);
-        return true;
+        if (userRepository.findUserByUsernameOrEmail(user.getUsername(), user.getEmail())==null) {
+            userRepository.save(user);
+            return true;
+        }
+        return false;
     }
 
     public Boolean updateUser(Integer id,User user){
 //        User userCheck = userRepository.findUserById(user.getId());
-//        if (userCheck.getUsername().equals(user.getUsername())||userCheck.getEmail().equals(user.getEmail()))
+//        if (userCheck==null||userCheck.getUsername().equals(user.getUsername())||userCheck.getEmail().equals(user.getEmail()))
 //            return false;
         User oldUser = userRepository.findUserById(id);
         if (oldUser==null)
             return false;
-        oldUser.setAge(user.getAge());
-        oldUser.setRole(user.getRole());
-        oldUser.setName(user.getName());
-        oldUser.setPassword(user.getPassword());
-        oldUser.setUsername(user.getUsername());
-        oldUser.setEmail(user.getEmail());
-        userRepository.save(oldUser);
-        return true;
+        User check = userRepository.findUserByUsernameOrEmail(user.getUsername(), user.getEmail());
+        if (check==null||!check.getEmail().equals(user.getEmail())||!check.getUsername().equals(user.getUsername())) {
+            oldUser.setAge(user.getAge());
+            oldUser.setRole(user.getRole());
+            oldUser.setName(user.getName());
+            oldUser.setPassword(user.getPassword());
+            oldUser.setUsername(user.getUsername());
+            oldUser.setEmail(user.getEmail());
+            userRepository.save(oldUser);
+            return true;
+        }
+        return false;
     }
 
     public Boolean deleteUser(Integer id){
